@@ -201,9 +201,9 @@ export class Popover extends React.PureComponent<PopoverProps, PopoverState> {
     return { x: anchor.x - popoverCenter.x, y: anchor.y - popoverCenter.y };
   };
 
-  UNSAFE_componentWillReceiveProps(nextProps: PopoverProps) {
-    const willBeVisible = nextProps.visible;
-    const { visible, fromRect, displayArea } = this.props;
+  componentDidUpdate(prevProps) {
+    const willBeVisible = this.props.visible;
+    const { visible, fromRect, displayArea } = prevProps;
 
     if (willBeVisible !== visible) {
       if (willBeVisible) {
@@ -213,8 +213,8 @@ export class Popover extends React.PureComponent<PopoverProps, PopoverState> {
       } else {
         this.startAnimation(false);
       }
-    } else if (willBeVisible && (fromRect !== nextProps.fromRect || displayArea !== nextProps.displayArea)) {
-      const geom = this.computeGeometry(nextProps, this.state.contentSize);
+    } else if (willBeVisible && (fromRect !== this.props.fromRect || displayArea !== this.props.displayArea)) {
+      const geom = this.computeGeometry(this.props, this.state.contentSize);
 
       const isAwaitingShow = this.state.isAwaitingShow;
       this.setState({ ...geom }, () => {
@@ -226,6 +226,32 @@ export class Popover extends React.PureComponent<PopoverProps, PopoverState> {
       });
     }
   }
+
+//   UNSAFE_componentWillReceiveProps(nextProps: PopoverProps) {
+//     const willBeVisible = nextProps.visible;
+//     const { visible, fromRect, displayArea } = this.props;
+
+//     if (willBeVisible !== visible) {
+//       if (willBeVisible) {
+//         // We want to start the show animation only when contentSize is known
+//         // so that we can have some logic depending on the geometry
+//         this.setState({ contentSize: { width: 0, height: 0 }, isAwaitingShow: true, visible: true });
+//       } else {
+//         this.startAnimation(false);
+//       }
+//     } else if (willBeVisible && (fromRect !== nextProps.fromRect || displayArea !== nextProps.displayArea)) {
+//       const geom = this.computeGeometry(nextProps, this.state.contentSize);
+
+//       const isAwaitingShow = this.state.isAwaitingShow;
+//       this.setState({ ...geom }, () => {
+//         // Once state is set, call the showHandler so it can access all the geometry
+//         // from the state
+//         if (isAwaitingShow) {
+//           this.startAnimation(true);
+//         }
+//       });
+//     }
+//   }
 
   private startAnimation = (show: boolean) => {
     const doneCallback = show ? undefined : this.onHidden;
