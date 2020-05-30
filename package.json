@@ -33,7 +33,6 @@
     "tslint": "^5.11.0",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^3.6.0",
-    "typescript": "^3.0.3"
   },
   "peerDependencies": {
     "react": ">16.0.0",
@@ -42,6 +41,7 @@
   "dependencies": {
     "@types/prop-types": "^15.5.5",
     "lodash.debounce": "^4.0.8",
-    "prop-types": "^15.6.2"
+    "prop-types": "^15.6.2",
+    "typescript": "^3.0.3"
   }
 }
