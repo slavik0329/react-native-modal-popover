@@ -43,6 +43,6 @@
     "@types/prop-types": "^15.5.5",
     "lodash.debounce": "^4.0.8",
     "prop-types": "^15.6.2",
-    "typescript": "^3.0.3",
+    "typescript": "^3.0.3"
   }
 }
